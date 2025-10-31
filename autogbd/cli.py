@@ -154,6 +154,59 @@ def version():
     console.print(f"AutoGBD version {__version__}")
 
 
+@app.command()
+def config_builder(
+    port: int = typer.Option(
+        8501,
+        "--port",
+        "-p",
+        help="Port to run the Streamlit app on",
+    ),
+):
+    """
+    Launch the visual configuration builder.
+
+    Opens a web interface in your browser for creating and editing
+    config.yaml files without manually writing YAML.
+    """
+    try:
+        import streamlit
+    except ImportError:
+        console.print(
+            "[red]Error: Streamlit is not installed.[/red]\n"
+            "Install it with: pip install streamlit\n"
+            "Or install the app extras: pip install -e '.[app]'"
+        )
+        raise typer.Exit(1)
+
+    import subprocess
+    import sys
+
+    app_path = Path(__file__).parent / "app.py"
+
+    console.print(f"[green]Launching config builder on port {port}...[/green]")
+    console.print("[yellow]Press Ctrl+C to stop the server[/yellow]\n")
+
+    try:
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "streamlit",
+                "run",
+                str(app_path),
+                "--server.port",
+                str(port),
+            ],
+            check=True,
+        )
+    except KeyboardInterrupt:
+        console.print("\n[yellow]Config builder stopped.[/yellow]")
+    except subprocess.CalledProcessError as e:
+        console.print(f"[red]Error launching app: {e}[/red]")
+        raise typer.Exit(1)
+
+
 def main():
     """Entry point for the CLI."""
     app()
