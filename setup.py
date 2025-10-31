@@ -43,6 +43,9 @@ setup(
             "sentence-transformers>=2.2.0",
             "torch>=2.0.0",
         ],
+        "app": [
+            "streamlit>=1.28.0",
+        ],
         "dev": [
             "pytest>=7.4.0",
             "pytest-cov>=4.1.0",

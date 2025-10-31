@@ -2,18 +2,67 @@
 
 ## Installation
 
+**Important:** Make sure you're in a conda/virtual environment first!
+
 ```bash
+# Activate conda environment (if using conda)
+conda activate general
+
 # Basic installation
+pip install -r requirements.txt
 pip install -e .
 
 # With AI features
+pip install -r requirements-ai.txt
 pip install -e ".[ai]"
 
-# Development installation
-pip install -e ".[dev,ai]"
+# With visual config builder
+pip install -r requirements-app.txt
+pip install -e ".[app]"
+
+# Development installation (everything)
+pip install -r requirements-dev.txt
+pip install -r requirements-ai.txt
+pip install -r requirements-app.txt
+pip install -e ".[dev,ai,app]"
 ```
 
-## Minimal Example
+**Troubleshooting:** If you get dependency errors, install them first:
+```bash
+pip install pandas pydantic pyyaml rapidfuzz typer rich streamlit
+```
+
+## Creating Your Configuration
+
+### Option 1: Visual Config Builder (Easiest) ⭐
+
+Launch the Streamlit web interface:
+
+```bash
+# Method 1: Install and use CLI command (recommended)
+pip install -e ".[app]"
+autogbd config-builder
+
+# Method 2: Install and run directly
+pip install -e ".[app]"
+streamlit run autogbd/app.py
+
+# Method 3: Run without installation (from project root)
+cd /path/to/AutoGBD
+streamlit run autogbd/app.py
+
+# Method 4: Using Make
+make install-app
+make app
+```
+
+This opens a browser interface where you can:
+- ✨ Fill out forms instead of writing YAML
+- 👀 See live preview of your config
+- ✓ Validate before saving
+- 📥 Download the config.yaml file
+
+### Option 2: Manual Configuration
 
 1. **Create input data** (`data/input.csv`):
 
@@ -77,10 +126,17 @@ B20,HIV/AIDS
 I21,Ischemic heart disease
 ```
 
-4. **Run the pipeline**:
+## Running the Pipeline
 
 ```bash
+# Run the harmonization
 autogbd run --config config.yaml
+
+# Validate your config first
+autogbd validate --config config.yaml
+
+# With verbose output
+autogbd run --config config.yaml --verbose
 ```
 
 ## Output Files
@@ -97,4 +153,3 @@ After running, you'll get:
 - See `examples/config.example.yaml` for all configuration options
 - Read the full `README.md` for detailed documentation
 - Check `CONTRIBUTING.md` if you want to contribute
-

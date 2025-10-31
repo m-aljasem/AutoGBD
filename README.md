@@ -31,6 +31,7 @@
 ### Basic Installation
 
 ```bash
+# Make sure you're in a virtual environment or conda environment
 pip install autogbd
 ```
 
@@ -40,15 +41,86 @@ pip install autogbd
 pip install autogbd[ai]
 ```
 
+### With Config Builder App
+
+```bash
+pip install autogbd[app]
+```
+
 ### Development Installation
 
 ```bash
-git clone https://github.com/autogbd/autogbd.git
+git clone https://github.com/m-aljasem/autogbd.git
 cd autogbd
-pip install -e ".[dev,ai]"
+
+# Install dependencies first
+pip install -r requirements.txt
+pip install -r requirements-app.txt  # For Streamlit
+
+# Install package in development mode
+pip install -e ".[dev,ai,app]"
 ```
 
+**Note:** If you're using conda, make sure your environment is activated:
+```bash
+conda activate your_env_name
+pip install -r requirements.txt
+```
+
+See `INSTALL.md` for detailed installation instructions.
+
+## Visual Configuration Builder
+
+AutoGBD includes a Streamlit-based web interface for creating and editing configuration files:
+
+```bash
+# Option 1: Install package (recommended)
+pip install -e ".[app]"
+# Then run from anywhere:
+streamlit run autogbd/app.py
+
+# Option 2: Run without installation (from project root)
+cd /path/to/AutoGBD
+streamlit run autogbd/app.py
+
+# Option 3: Use the CLI command (after installation)
+pip install -e ".[app]"
+autogbd config-builder
+```
+
+The config builder provides:
+- ✨ Visual form-based editor for all configuration options
+- 👀 Live YAML preview as you make changes
+- ✓ Real-time configuration validation
+- 📥 Download your config.yaml file
+- 📤 Upload and edit existing configurations
+
+This makes it much easier to create complex configurations without manually editing YAML!
+
 ## Quick Start
+
+### Option 1: Use the Visual Config Builder (Recommended)
+
+Launch the Streamlit web interface for easy configuration:
+
+```bash
+# Install with app dependencies
+pip install -e ".[app]"
+
+# Or install streamlit separately
+pip install streamlit
+
+# Run the config builder
+streamlit run autogbd/app.py
+```
+
+This will open a web interface in your browser where you can:
+- Visually configure all settings
+- See live YAML preview
+- Validate your configuration
+- Download the config.yaml file
+
+### Option 2: Manual Configuration
 
 1. **Create a configuration file** (`config.yaml`):
 
@@ -223,19 +295,36 @@ If you use AutoGBD in your research, please cite:
 ```bibtex
 @software{autogbd2024,
   title={AutoGBD: Intelligent Health Data Harmonization Framework},
-  author={AutoGBD Team},
-  year={2024},
-  url={https://github.com/autogbd/autogbd}
+  author={Mohamad AlJasem},
+  year={2025},
+  url={https://github.com/m-aljasem/autogbd}
 }
 ```
+
+## Website
+
+Visit our professional website to learn more about AutoGBD:
+
+**Local Development:**
+```bash
+cd website
+python -m http.server 8000
+# Then open http://localhost:8000
+```
+
+Or use the quick launcher:
+```bash
+./website/serve.sh
+```
+
+The website showcases all features, architecture, use cases, and provides comprehensive documentation. Perfect for sharing with collaborators, professors, or potential employers!
 
 ## Support
 
 For questions, issues, or contributions, please visit:
-- GitHub Issues: https://github.com/autogbd/autogbd/issues
-- Documentation: https://autogbd.readthedocs.io
+- GitHub Issues: https://github.com/m-aljasem/autogbd/issues
+- Website: See `website/` directory
 
 ## Acknowledgments
 
-Built with support from the GBD Collaborative, Google DeepMind, and OpenAI research communities.
-
+This project is not funded by any private or public sector organztion.

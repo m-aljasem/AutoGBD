@@ -1,4 +1,4 @@
-.PHONY: help install install-dev install-ai test lint format clean build
+.PHONY: help install install-dev install-ai install-app test lint format clean build app
 
 help:
 	@echo "AutoGBD Makefile"
@@ -7,12 +7,14 @@ help:
 	@echo "  install      - Install AutoGBD with basic dependencies"
 	@echo "  install-dev  - Install AutoGBD with development dependencies"
 	@echo "  install-ai   - Install AutoGBD with AI dependencies"
+	@echo "  install-app  - Install AutoGBD with app dependencies"
 	@echo "  test         - Run test suite"
 	@echo "  test-cov     - Run tests with coverage report"
 	@echo "  lint         - Run linters (flake8)"
 	@echo "  format       - Format code with black"
 	@echo "  clean        - Remove build artifacts"
 	@echo "  build        - Build distribution packages"
+	@echo "  app          - Launch the visual config builder"
 
 install:
 	pip install -e .
@@ -22,6 +24,9 @@ install-dev:
 
 install-ai:
 	pip install -e ".[ai]"
+
+install-app:
+	pip install -e ".[app]"
 
 test:
 	pytest
@@ -40,4 +45,7 @@ clean:
 
 build: clean
 	python setup.py sdist bdist_wheel
+
+app:
+	autogbd config-builder
 
