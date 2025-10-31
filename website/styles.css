@@ -193,18 +193,7 @@ body {
     align-items: center;
 }
 
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    background: rgba(102, 126, 234, 0.1);
-    color: var(--secondary);
-    padding: var(--spacing-xs) var(--spacing-md);
-    border-radius: 20px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    margin-bottom: var(--spacing-lg);
-}
+/* Hero badge removed */
 
 .hero-title {
     font-size: clamp(2.5rem, 5vw, 4rem);
@@ -419,7 +408,16 @@ section {
     padding: var(--spacing-xl);
     background: var(--bg-secondary);
     border-radius: 16px;
-    overflow-x: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.architecture-diagram::-webkit-scrollbar {
+    display: none;
+}
+
+.arch-flow::-webkit-scrollbar {
+    display: none;
 }
 
 .arch-flow {
@@ -427,8 +425,10 @@ section {
     align-items: center;
     justify-content: center;
     gap: var(--spacing-md);
-    flex-wrap: wrap;
-    min-width: 800px;
+    flex-wrap: nowrap;
+    min-width: 100%;
+    overflow-x: hidden;
+    padding: var(--spacing-md) 0;
 }
 
 .arch-step {
@@ -436,7 +436,10 @@ section {
     padding: var(--spacing-lg);
     border-radius: 12px;
     text-align: center;
-    min-width: 150px;
+    min-width: 220px;
+    width: 220px;
+    flex: 0 0 auto;
+    flex-shrink: 0;
     box-shadow: var(--shadow-md);
     border: 1px solid var(--border);
 }
@@ -462,6 +465,8 @@ section {
     font-size: 2rem;
     color: var(--primary);
     font-weight: 700;
+    flex: 0 0 auto;
+    flex-shrink: 0;
 }
 
 .tech-stack {
@@ -918,12 +923,39 @@ section {
     }
     
     .arch-flow {
-        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
         min-width: auto;
+        overflow-x: auto;
+        overflow-x: -moz-scrollbars-none;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .arch-flow::-webkit-scrollbar {
+        display: none;
     }
     
     .arch-arrow {
-        transform: rotate(90deg);
+        flex: 0 0 auto;
+    }
+    
+    .arch-step {
+        min-width: 200px;
+        width: 200px;
+        flex-shrink: 0;
+    }
+    
+    .architecture-diagram {
+        overflow-x: auto;
+        overflow-x: -moz-scrollbars-none;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    
+    .architecture-diagram::-webkit-scrollbar {
+        display: none;
     }
     
     .features-grid,

@@ -20,6 +20,9 @@ wheels/
 .installed.cfg
 *.egg
 
+website/.vercel
+
+
 # Virtual environments
 venv/
 env/
