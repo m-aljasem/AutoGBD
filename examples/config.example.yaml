@@ -1,0 +1,181 @@
+# AutoGBD Configuration Example
+# This is a complete example configuration file demonstrating all available options
+
+io:
+  # Input data file
+  input_file: "data/raw_mortality_data.csv"
+  
+  # Output file for harmonized data
+  output_file: "output/harmonized_mortality_data.csv"
+  
+  # Input format: csv, excel, xlsx, or parquet
+  input_format: "csv"
+  
+  # Output format: csv, excel, xlsx, or parquet
+  output_format: "csv"
+  
+  # Sheet name for Excel files (optional)
+  # sheet_name: "Sheet1"
+
+cleaning:
+  # Enable/disable data cleaning
+  enabled: true
+  
+  # List of cleaning rules to apply (in order)
+  rules:
+    # Normalize column names to lowercase with underscores
+    - name: "normalize_column_names"
+      enabled: true
+      parameters: {}
+    
+    # Remove duplicate rows
+    - name: "remove_duplicates"
+      enabled: true
+      parameters:
+        # subset: ["id", "date"]  # Optional: specific columns to check
+        keep: "first"  # "first", "last", or False
+    
+    # Normalize sex/gender column
+    - name: "normalize_sex"
+      enabled: true
+      parameters:
+        column: "sex"
+        # Optional: custom mappings
+        # custom_mapping:
+        #   "M": "male"
+        #   "F": "female"
+    
+    # Standardize age values
+    - name: "standardize_ages"
+      enabled: true
+      parameters:
+        column: "age"
+        min_age: 0
+        max_age: 150
+        remove_invalid: false  # Set to true to remove invalid ages
+    
+    # Handle missing values
+    - name: "handle_missing_values"
+      enabled: true
+      parameters:
+        strategy: "keep"  # "keep", "drop", or "fill"
+        # subset: ["critical_column"]  # Optional: specific columns
+        # value: ""  # Value to fill if strategy is "fill"
+    
+    # Normalize text columns
+    - name: "normalize_text"
+      enabled: true
+      parameters:
+        columns: ["cause_of_death", "location"]
+
+mapping:
+  # Enable/disable cause mapping
+  enabled: true
+  
+  # Column containing source codes (e.g., ICD-10 codes)
+  source_column: "icd10_code"
+  
+  # Column for mapped GBD causes
+  target_column: "gbd_cause"
+  
+  # Mapping sources (processed in order)
+  sources:
+    # Direct mapping from versioned mapping file
+    - type: "direct"
+      file: "mappings/icd10_to_gbd_v3.2.csv"
+      version: "3.2"
+      enabled: true
+    
+    # Fuzzy string matching for close matches
+    - type: "fuzzy"
+      file: "mappings/gbd_cause_list.csv"
+      threshold: 0.85  # Minimum similarity score (0-1)
+      enabled: true
+    
+    # AI-assisted mapping (requires sentence-transformers)
+    - type: "ai"
+      threshold: 0.85  # Minimum confidence for auto-application
+      enabled: true
+      # Optional: specify GBD cause list file
+      # gbd_cause_list: "mappings/gbd_cause_list.csv"
+
+quality:
+  # Enable/disable quality checks
+  enabled: true
+  
+  # List of quality checks to run
+  checks:
+    # Check age ranges
+    - name: "check_age_range"
+      enabled: true
+      parameters:
+        column: "age"
+        min_age: 0
+        max_age: 150
+    
+    # Check sex values
+    - name: "check_sex_values"
+      enabled: true
+      parameters:
+        column: "sex"
+        valid_values: ["male", "female", "unknown"]
+    
+    # Check for missing values
+    - name: "check_missing_values"
+      enabled: true
+      parameters:
+        columns: ["icd10_code", "age", "sex"]
+        threshold: 0.1  # Maximum allowed missing percentage
+    
+    # Check for unmapped codes
+    - name: "check_unmapped_codes"
+      enabled: true
+      parameters:
+        source_column: "icd10_code"
+        target_column: "gbd_cause"
+        threshold: 0.05  # Maximum allowed unmapped percentage
+    
+    # Check death count validity
+    - name: "check_death_count_validity"
+      enabled: true
+      parameters:
+        column: "deaths"
+        max_reasonable: 1000000
+    
+    # Check value ranges
+    - name: "check_value_ranges"
+      enabled: true
+      parameters:
+        column: "year"
+        min_value: 1900
+        max_value: 2100
+    
+    # Check for duplicates
+    - name: "check_duplicates"
+      enabled: true
+      parameters:
+        allow_duplicates: false
+        # subset: ["id"]  # Optional: specific columns
+    
+    # Check date validity
+    - name: "check_date_validity"
+      enabled: true
+      parameters:
+        column: "death_date"
+    
+    # Check data completeness
+    - name: "check_completeness"
+      enabled: true
+      parameters:
+        required_columns: ["icd10_code", "age", "sex", "deaths"]
+
+reporting:
+  # Enable/disable report generation
+  enabled: true
+  
+  # Output file for harmonization report
+  output_file: "harmonization_report.md"
+  
+  # Report format: markdown or html
+  format: "markdown"
+
