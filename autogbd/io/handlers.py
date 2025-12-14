@@ -66,16 +66,16 @@ class DataHandler:
         FileNotFoundError
             If the file doesn't exist.
         """
-        file_path = Path(file_path)
-        if not file_path.exists():
-            raise FileNotFoundError(f"Input file not found: {file_path}")
-
         file_format = file_format.lower()
         if file_format not in self._loaders:
             raise ValueError(
                 f"Unsupported file format: {file_format}. "
                 f"Supported formats: {list(self._loaders.keys())}"
             )
+
+        file_path = Path(file_path)
+        if not file_path.exists():
+            raise FileNotFoundError(f"Input file not found: {file_path}")
 
         loader = self._loaders[file_format]
         if file_format in {"excel", "xlsx"} and sheet_name:
@@ -122,7 +122,10 @@ class DataHandler:
 
     def _load_excel(self, file_path: Path, sheet_name: Optional[str] = None, **kwargs) -> pd.DataFrame:
         """Load Excel file."""
-        return pd.read_excel(file_path, sheet_name=sheet_name, **kwargs)
+        # When sheet_name is None, pandas returns a dict of all sheets.
+        # Default to the first sheet (0) to return a DataFrame.
+        effective_sheet = 0 if sheet_name is None else sheet_name
+        return pd.read_excel(file_path, sheet_name=effective_sheet, **kwargs)
 
     def _load_parquet(self, file_path: Path, **kwargs) -> pd.DataFrame:
         """Load Parquet file."""
