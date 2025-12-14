@@ -53,6 +53,13 @@ provenance.json
 human_review_required.csv
 harmonization_report.md
 
+# Demo and sample files
+sample_data.csv
+demo_config.yaml
+run_demo.py
+*_demo.*
+NOTEBOOK_README.md
+
 # AI models (can be large)
 models/
 *.pt
@@ -61,6 +68,12 @@ models/
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb
+
+# Website build artifacts
+docs/index.html
+docs/script.js
+docs/styles.css
+website/
 
 # OS
 .DS_Store

@@ -2,6 +2,86 @@
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "autogbd"
+version = "0.1.0"
+description = "Intelligent health data harmonization framework for Global Burden of Disease standards"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    {name = "AutoGBD Team", email = "info@autogbd.org"},
+]
+maintainers = [
+    {name = "Mohamad AlJasem", email = "info@autogbd.org"},
+]
+keywords = [
+    "health",
+    "data",
+    "harmonization",
+    "GBD",
+    "global",
+    "burden",
+    "disease",
+    "epidemiology",
+    "public",
+    "health",
+    "AI",
+    "machine",
+    "learning",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Healthcare Industry",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "pandas>=2.0.0",
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0",
+    "rapidfuzz>=3.0.0",
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+ai = [
+    "sentence-transformers>=2.2.0",
+    "torch>=2.0.0",
+]
+app = [
+    "streamlit>=1.28.0",
+]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.5.0",
+]
+docs = [
+    "sphinx>=5.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+]
+
+[project.scripts]
+autogbd = "autogbd.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/m-aljasem/autogbd"
+Documentation = "https://github.com/m-aljasem/autogbd#readme"
+Repository = "https://github.com/m-aljasem/autogbd"
+Issues = "https://github.com/m-aljasem/autogbd/issues"
+Changelog = "https://github.com/m-aljasem/autogbd/blob/main/CHANGELOG.md"
+
 [tool.black]
 line-length = 100
 target-version = ['py310']

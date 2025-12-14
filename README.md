@@ -1,8 +1,11 @@
 # AutoGBD: Intelligent Health Data Harmonization Framework
 
+[![PyPI version](https://badge.fury.io/py/autogbd.svg)](https://pypi.org/project/autogbd/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![CI](https://github.com/m-aljasem/autogbd/actions/workflows/ci.yml/badge.svg)](https://github.com/m-aljasem/autogbd/actions/workflows/ci.yml)
+[![Coverage](https://codecov.io/gh/m-aljasem/autogbd/branch/main/graph/badge.svg)](https://codecov.io/gh/m-aljasem/autogbd)
 
 **AutoGBD** is an intelligent, open-source framework for harmonizing health data to Global Burden of Disease (GBD) standards. It transforms chaotic raw health data into structured, analysis-ready formats with complete reproducibility and transparency.
 
@@ -303,19 +306,12 @@ If you use AutoGBD in your research, please cite:
 
 ## Website
 
-Visit our professional website to learn more about AutoGBD:
+Visit our  website to learn more about AutoGBD:
 
-**Local Development:**
-```bash
-cd website
-python -m http.server 8000
-# Then open http://localhost:8000
+```
+https://autogbd.aljasem.eu.org
 ```
 
-Or use the quick launcher:
-```bash
-./website/serve.sh
-```
 
 The website showcases all features, architecture, use cases, and provides comprehensive documentation. Perfect for sharing with collaborators, professors, or potential employers!
 
@@ -323,7 +319,7 @@ The website showcases all features, architecture, use cases, and provides compre
 
 For questions, issues, or contributions, please visit:
 - GitHub Issues: https://github.com/m-aljasem/autogbd/issues
-- Website: See `website/` directory
+
 
 ## Acknowledgments
 

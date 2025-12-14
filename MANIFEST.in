@@ -1,0 +1,21 @@
+include README.md
+include LICENSE
+include CONTRIBUTING.md
+include INSTALL.md
+include QUICKSTART.md
+include RELEASE.md
+include CHANGELOG.md
+include pyproject.toml
+include MANIFEST.in
+include requirements*.txt
+include examples/*.yaml
+recursive-include demos *.csv
+recursive-include demos *.yaml
+recursive-include demos *.ipynb
+recursive-include scripts *.sh
+recursive-include tests *.py
+global-exclude *.pyc
+global-exclude __pycache__
+global-exclude .pytest_cache
+global-exclude .coverage
+global-exclude *.egg-info
